@@ -11,7 +11,6 @@ import java.util.concurrent.Executors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /*
  * The scheduler would give each client a computation slice of 4s each.  Each client needs to keep
  * pinging the server to keep its job slot or otherwise, after a configurable time-out (30s), server would drop
@@ -24,7 +23,6 @@ public class JobScheduler {
     boolean hasStarted = false;
     Queue<Job> jobQueue = new ConcurrentLinkedQueue();
     Map<String, Job> jobStates = new ConcurrentHashMap<>();
-
     Configuration configuration;
 
     public JobScheduler(Configuration configuration) {
@@ -82,6 +80,7 @@ public class JobScheduler {
     private boolean canRunjob(Job job) {
         return (job.clientLastPing.get() + configuration.getHeartBeatTimeoutInMilliSecs()) > System.currentTimeMillis();
     }
+
     private void deleteJob(Job job) {
         logger.info("Unscheduling client job: " + job.clientId);
         jobQueue.remove(job);
