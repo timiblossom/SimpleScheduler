@@ -11,6 +11,7 @@
 #  Build
    This project is using Gradle.  You need to install Gradle according to its instruction for your environment (OSX, Linux or Windows).
    To build and test, run: 
+
       $ gradle build
 
    Also, you can open this project in an IDE such as IntelliJ and run unit test from there.
