@@ -1,0 +1,19 @@
+// 1. syntax, package, option
+syntax = "proto3";
+
+package com.minh.scheduler.grpc;
+
+option java_multiple_files = true;
+
+message JobRequest {
+    string clientId = 1;
+}
+
+message JobResponse {
+    string jobStatus = 1;
+}
+
+// 4. service, unary request/response
+service JobService {
+    rpc submit(JobRequest) returns (JobResponse);
+}
