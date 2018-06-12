@@ -12,6 +12,12 @@
    job.  Instead, client needs to send its heartbeats by calling sendRequest() (we should change this API name to a bettter
    one).
 
+# Scheduler
+   The scheduler assumes each client job run continuously for a long time.  To provide a fair scheduling, each client
+   job would be given a computing slice (with all server resources) of 4s at a time to run.  Since our client/server 
+   protocol is simple, there is no such cancel or stop request API for clients.  Instead, to stop, a clients just stops
+   sending its heartbeats to server and its job would get canceled out with-in the next timeout check (30s default).  
+
 #  Build
    This project is using Gradle.  You need to install Gradle according to its instruction for your environment (OSX, Linux or Windows).
    To build and test, run: 
