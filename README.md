@@ -24,5 +24,10 @@
 
       $ gradle build
 
+   To generate the protobuf files only, run:
+
+      $ gradle generateProto 
+
    Also, you can open this project in an IDE such as IntelliJ or Eclipse and run unit test from there.
 
+      

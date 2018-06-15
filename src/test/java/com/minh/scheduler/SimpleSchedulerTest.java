@@ -66,4 +66,28 @@ public class SimpleSchedulerTest {
         client2.shutdown();
         grpcServerRule.getServer().shutdown();
     }
+
+
+    /*
+     * Call scheduler to schedule a job directly.  Wait for a few secs and count the number of times
+     * that job gets executed.
+     * Better to use mocking here to control the exact output to compare.
+     */
+    @Test
+    public void TestSchedulerOnly() {
+        JobScheduler scheduler = new JobScheduler(new Configuration());
+        scheduler.start();
+
+        String clientId = "job1";
+        Job job = new Job(clientId);
+        scheduler.scheduleJob(job);
+        //Sleep for 10s to make sure server has enough time to run the client job.
+        Utils.sleep(Duration.ofMillis(10000));
+        //Retrieve all jobs from our scheduler to do the assertions
+        Map<String, Job> jobs = scheduler.jobStates();
+        assertNotNull(jobs.get(clientId));
+        assertEquals(1, jobs.size());
+        assertTrue(jobs.get(clientId).context.numRuns == 2);
+    }
+
 }
